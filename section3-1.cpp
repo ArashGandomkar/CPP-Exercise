@@ -156,7 +156,7 @@ void matrix2()
     
    //(Without taking input from the user)
 
-    int array1[3][4] =
+    vector<vector<int>> array1 =
      {
         {1,2,3,4},
         {5,6,7,8},
