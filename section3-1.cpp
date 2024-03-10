@@ -102,23 +102,23 @@ int array(int b)
 {
    int chs;
    int sugg;
-   int index = b+1;
-   int array[index];
-   array[0] = 0;
+   int index = b;
+   vector<int> array;
+   vector<int> temp;
    cout << "Enter " << b << " index: ";
-   for (int i = 1; i < index; i++)
+   for (int i = 1; i <= index; i++)
    {
    cin >> sugg;
-   array[i] = sugg;
+   array.push_back(sugg);
    }
    cout << "The Array is: " << "\" ";
-   for (int i = 1; i <= b; i++) {cout << array[i] << " ";}
+   for (int i = 0; i < b; i++) {cout << array[i] << " ";}
    cout << "\"";
    cout << endl << "Choose one index from ";
    for (int k=1;k<=b;k++) {cout << k;if(k<b){cout << ",";}}
    cout << ": ";
    cin >> chs;
-   cout << "The value of index " << chs << " is " << array[chs] << "." << endl;
+   cout << "The value of index " << chs << " is " << array[chs-1] << "." << endl;
    return 0;
 }
 
@@ -130,20 +130,25 @@ void matrix1()
     //(With taking input from the user)
 
     cout << "Enter 12 index: ";
-    int array1[3][4];
+    vector<vector<int>> arr1;
+    vector<int> temp;
+    int val;
     for (int i=0;i<3;i++)
     {
         for (int j = 0; j < 4; j++)
         {
-        cin >> array1[i][j];
+        cin >> val;
+        temp.push_back(val);
         }
+    arr1.push_back(temp);
+    temp.clear();
     }
     cout << "The Array's elements(3*4) is:" << endl;
     for (int i = 0; i < 3; i++)
     {
         for (int j=0;j<4;j++)
         {
-        cout << array1[i][j] << " ";
+        cout << arr1[i][j] << " ";
         if (j==3) {cout << endl;}
         }
     }
@@ -156,7 +161,7 @@ void matrix2()
     
    //(Without taking input from the user)
 
-    vector<vector<int>> array1 =
+    vector<vector<int>> arr1 =
      {
         {1,2,3,4},
         {5,6,7,8},
@@ -166,7 +171,7 @@ void matrix2()
     {
         for (int j = 0; j < 4; j++)
         {
-            cout << array1[i][j] << " ";
+            cout << arr1[i][j] << " ";
             if (j==3) {cout << endl;}
             if (i==0 && (j==1 || j==2)) {cout << " ";}
             if (i==1 && (j==1 || j==2)) {cout << " ";}
@@ -179,28 +184,33 @@ void matrix2()
 void matrix3()
 {
     cout << "Enter 16 index: ";
-    int array2[4][4];
+    vector<vector<int>> arr2;
+    vector<int> temp;
+    int val;
     for (int i=0;i<4;i++)
     {
         for (int j = 0; j < 4; j++)
         {
-        cin >> array2[i][j];
+        cin >> val;
+        temp.push_back(val);
         }
+    arr2.push_back(temp);
+    temp.clear();
     }
     cout << "The Array's element(3*4) is:" << endl;
     for (int i = 0; i < 4; i++)
     {
         for (int j=0;j<4;j++)
         {
-        cout << array2[i][j] << " ";
+        cout << arr2[i][j] << " ";
         if (j==3) {cout << endl;}
         }
     }
     cout << endl;
     cout << "The areas above the main diameter of the (4*4)Matrix:" << endl;
-    cout << array2[0][1] << " ";
-    cout << array2[1][2] << " ";
-    cout << array2[2][3] << " ";
+    cout << arr2[0][1] << " ";
+    cout << arr2[1][2] << " ";
+    cout << arr2[2][3] << " ";
 }
 
 //Contact
@@ -217,7 +227,11 @@ void survey()
     string answer;
     cout << endl << "Are you interested?(YES/NO) ";
     cin >> answer;
-    if (answer == "Yes" || answer == "YES" ||  answer == "yes") {cout << "Good Luck...";}
-    if (answer == "No" || answer == "NO" ||  answer == "no") {cout << "You can contact me by Email(arashgkuni@gmail.com)..." << endl;}
+    vector<string> a1 = {"YES","Yes","yes"};
+    vector<string> a2 = {"NO","No","no"};
+    if (answer==a1[0] || answer==a1[1] || answer==a1[2]) {cout << "Good Luck...";}
+    else if (answer==a2[0] || answer==a2[1] || answer==a2[2])
+    {cout << "You can contact me by Email(arashgkuni@gmail.com)..." << endl;;}
+    else {survey();}
 }
     //Produced by ArashGk
