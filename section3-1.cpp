@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <string>
 using namespace std;
 int print(int a);
@@ -233,5 +234,47 @@ void survey()
     else if (answer==a2[0] || answer==a2[1] || answer==a2[2])
     {cout << "You can contact me by Email(arashgkuni@gmail.com)..." << endl;;}
     else {survey();}
+
+    cout << "Do you have another offer?(YES/NO) ";
+    string offer;
+    string offer2;
+    cin >> offer;
+    if (offer==a1[0] || offer==a1[1] || offer==a1[2]) {
+
+    //Method 1:   
+    /*
+    cout<<"Write here:(under 100.word): ";
+    cin.get(offer1,100);
+    cout << endl << "Your offer is : ";
+    cout << offer1 << endl;
+    */
+    //Method 2:
+    char ch;
+    ofstream s1("String", ios::binary);
+    if (!s1) exit(0);
+    cout << "Write here:(Finish your sentence with '.') " << endl;
+    do
+    {
+        cin.get(ch);
+        s1.put(ch);
+    } while (ch!='.');
+    s1.close();
+    ifstream s2("String", ios::binary);
+    if (!s2) exit(0);
+    cout << endl << "Your Offer is:";
+    s2.get(ch);
+    while (!s2.eof())
+    {
+        cout << ch;
+        s2.get(ch);
+    }
+    s2.close();
+
+    cout  << endl << endl << "Do you approve?(YES/NO) "; 
+    cin >> offer2;
+    if (offer2==a1[0] || offer2==a1[1] || offer2==a1[2]) {cout << "Well Done...";}
+    else if (offer2==a2[0] || offer2==a2[1] || offer2==a2[2])
+    {cout << "You can contact me by Email(arashgkuni@gmail.com)..." << endl;}
+    else {cout << "Wrong Answer...";} }
 }
     //Produced by ArashGk
