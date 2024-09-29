@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <sstream>
+#include <string>
+#include <algorithm>
 #include <cmath>
 #include <vector>
 using namespace std;
@@ -8,6 +10,7 @@ string ChangeBase(double, double);
 string ChangeBaseDecimal(double, double);
 double ChangeBaseTen(double, double);
 double ChangeBaseTenDecimal(double, double);
+string DisplayHexDigit(string);
 main()
 {
 
@@ -18,9 +21,31 @@ main()
     cin >> base1;
     cout << "Enter a base 2: ";
     cin >> base2;
-    if (base1 == 10)
+    if (base1 == 2 && base2 == 16)
     {
-        if (int(digit) > 0 && (digit - floor(digit)) > 0)
+        stringstream Digit_Base2;
+        Digit_Base2 << digit;
+        string NewDigit_Base2 = Digit_Base2.str();
+        cout << DisplayHexDigit(NewDigit_Base2) << endl;
+    }
+    else if (base1 == 10)
+    {
+        if (base2 == 16)
+        {
+            if (int(digit) >= 1 && (digit - floor(digit)) == 0)
+            {
+                stringstream Digit_Base2;
+                double b2 = 2.0;
+                Digit_Base2 << ChangeBase(digit, b2);
+                string NewDigit_Base2 = Digit_Base2.str();
+                cout << DisplayHexDigit(NewDigit_Base2) << endl;
+            }
+            else
+            {
+                cout << "Please enter integer number." << endl;
+            }
+        }
+        else if (int(digit) > 0 && (digit - floor(digit)) > 0)
         {
             cout << ChangeBase(digit, base2) << "." << ChangeBaseDecimal(digit, base2) << endl;
         }
@@ -30,12 +55,27 @@ main()
         }
         else if (int(digit) == 0 && (digit - floor(digit)) != 0)
         {
-            cout << ChangeBaseDecimal(digit, base2) << endl;
+            cout << "0." << ChangeBaseDecimal(digit, base2) << endl;
         }
     }
     else if (base1 != 10)
     {
-        if (int(digit) > 0 && (digit - floor(digit)) > 0)
+        if (base2 == 16)
+        {
+            if (int(digit) >= 1 && (digit - floor(digit)) == 0)
+            {
+                stringstream Digit_Base2;
+                double b2 = 2.0;
+                Digit_Base2 << ChangeBase(digit, b2);
+                string NewDigit_Base2 = Digit_Base2.str();
+                cout << DisplayHexDigit(NewDigit_Base2) << endl;
+            }
+            else
+            {
+                cout << "Please enter integer number." << endl;
+            }
+        }
+        else if (int(digit) > 0 && (digit - floor(digit)) > 0)
         {
             double NewDigit = ChangeBaseTen(digit, base1);
             double NewDecimalDigit = ChangeBaseTenDecimal(digit, base1);
@@ -164,6 +204,47 @@ double ChangeBaseTenDecimal(double digit, double base)
         a--;
     }
     return answer;
+}
+// Convert a group of 4-bits to HexDigit
+char binaryToHexDigit(string binary)
+{
+    int decimal = 0;
+
+    for (size_t i = 0; i < binary.size(); ++i)
+    {
+        decimal = decimal * 2 + (binary[i] - '0');
+    }
+    if (decimal < 10)
+    {
+        return decimal + '0';
+    }
+    else
+    {
+        return decimal - 10 + 'A';
+    }
+}
+// Covert BinaryDigit to HexDigit
+string binaryToHex(string binary)
+{
+    string hex = "";
+    while (binary.size() % 4 != 0)
+    {
+        binary = '0' + binary;
+    }
+    // Convert every 4-bits to HexDigit
+    for (size_t i = 0; i < binary.size(); i += 4)
+    {
+        string fourBits = binary.substr(i, 4);
+        hex += binaryToHexDigit(fourBits);
+    }
+    return hex;
+}
+// A Function that returns the HexDigit
+string DisplayHexDigit(string binary)
+{
+
+    string hexInteger = binaryToHex(binary);
+    return hexInteger;
 }
 // A Function that returns the number of divisions
 int retro(int digit, int base)
