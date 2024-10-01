@@ -209,7 +209,7 @@ double ChangeBaseTenDecimal(double digit, double base)
 char binaryToHexDigit(string binary)
 {
     int decimal = 0;
-
+    //Convert char to inteager ((*2 == pow) + (Char-'0' == Digit))
     for (size_t i = 0; i < binary.size(); ++i)
     {
         decimal = decimal * 2 + (binary[i] - '0');
@@ -220,6 +220,7 @@ char binaryToHexDigit(string binary)
     }
     else
     {
+        //Return (A-B-C-D-E-F)
         return decimal - 10 + 'A';
     }
 }
@@ -227,11 +228,12 @@ char binaryToHexDigit(string binary)
 string binaryToHex(string binary)
 {
     string hex = "";
+    //Add zero to the digit until its length is divisible by 4
     while (binary.size() % 4 != 0)
     {
         binary = '0' + binary;
     }
-    // Convert every 4-bits to HexDigit
+    // Convert every 4-bits(With substr()Function) to HexDigit
     for (size_t i = 0; i < binary.size(); i += 4)
     {
         string fourBits = binary.substr(i, 4);
